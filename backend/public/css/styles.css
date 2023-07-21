@@ -1,0 +1,17 @@
+.hide {
+    display: none;
+}
+
+#login-box {
+    border: 1px solid black;
+    width: min-content;
+}
+
+#signup-box{
+    border: 1px solid black;
+    width: min-content;
+}
+
+#signup-box input{
+ margin-bottom: 1em;
+}
