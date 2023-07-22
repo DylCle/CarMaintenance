@@ -13,7 +13,10 @@ app.get('/', (req, res) => {
 
 // MySQL connection setup
 const pool = mysql.createPool({
-  database: 'mydusersdatabase',
+  host: 'localhost',
+  user: 'falco',
+  password: '1337',
+  database: 'usersdatabase',
 });
 
 // Test the connection
