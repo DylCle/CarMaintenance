@@ -1,17 +1,26 @@
 const express = require('express');
 const path = require('path');
+const mysql = require('mysql2');
 const app = express();
-const port = 3000; 
+const port = 3000;
 
-// Get the absolute path to the 'public' folder
 const publicPath = path.join(__dirname, './public');
-
-// Middleware to serve static files from the 'public' folder
 app.use(express.static(publicPath));
 
-// Route for the root URL, you can remove the previous 'app.get' for '/'
 app.get('/', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
+});
+
+// MySQL connection setup
+const pool = mysql.createPool({
+  database: 'mydusersdatabase',
+});
+
+// Test the connection
+pool.getConnection((err, connection) => {
+  if (err) throw err;
+  console.log('Connected to MySQL!');
+  connection.release(); // Release the connection to the pool
 });
 
 // Start the server
