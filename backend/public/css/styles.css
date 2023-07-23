@@ -15,3 +15,15 @@
 #signup-box input{
  margin-bottom: 1em;
 }
+
+#error {
+text-align: center;
+    width: fit-content;
+    background-color: rgb(255, 0, 0);
+}
+
+#error p{
+    color: aliceblue;
+    font-size: large;
+    padding: 1em;
+}
