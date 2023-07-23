@@ -1,11 +1,7 @@
 const loginButton = document.getElementById('login-button');
 
-errorText.innerHTML = "";
 
 loginButton.addEventListener('click', () => {
-    if (!errorPopUp.classList.contains('hide')) {
-        errorPopUp.classList.add('hide');
-    }
 
     const userName = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -33,6 +29,9 @@ loginButton.addEventListener('click', () => {
         })
         .then((data) => {
             console.log('test' + data.message);
+            localStorage.setItem('username', userName);
+            window.location.href = '../home.html';
+      
         })
         .catch((error) => {
             console.error('Error:', error);

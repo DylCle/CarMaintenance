@@ -2,6 +2,8 @@
 const signupButton = document.getElementById('signup-button');
 const errorPopUp = document.getElementById('error');
 const errorText = document.createElement('p');
+let loginBox = document.getElementById('login-box');
+let signUpBox = document.getElementById('signup-box');
 errorText.innerHTML = "";
 
 signupButton.addEventListener('click', () => {
@@ -60,6 +62,8 @@ signupButton.addEventListener('click', () => {
                                 .then((response) => response.json())
                                 .then((data) => {
                                     console.log(data.message);
+                                    signUpBox.classList.add('hide');
+                                    loginBox.classList.remove('hide');
                                 })
                                 .catch((error) => {
                                     console.error('Error:', error);

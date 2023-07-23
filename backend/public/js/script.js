@@ -16,8 +16,6 @@ function showSignUp() {
     signUp.classList.add('hide');
     login.classList.add('hide');
     signUpBox.classList.remove('hide');
-    history.pushState({ loginBoxVisible: true }, '');
-
 }
 
 function exitBox(event) {
@@ -48,7 +46,7 @@ window.addEventListener('popstate', function (event) {
             signUpBox.classList.add('hide');
             signUp.classList.remove('hide');
             login.classList.remove('hide');
-        }  if (event.state.signUpBoxVisible) {
+        }  if (event.state.loginBoxVisible) {
             loginBox.classList.add('hide');
             signUp.classList.remove('hide');
             login.classList.remove('hide');

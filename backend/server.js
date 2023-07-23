@@ -18,17 +18,12 @@ const connection = mysql.createConnection({
 const publicPath = path.join(__dirname, './public');
 app.use(express.static(publicPath));
 
-
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
 
-
-
 app.post('/check-field', (req, res) => {
   const { field, value } = req.body;
-
   const sql = `SELECT COUNT(*) AS count FROM users WHERE ${field} = ?`;
   connection.query(sql, [value], (err, result) => {
     if (err) {
@@ -43,7 +38,6 @@ app.post('/check-field', (req, res) => {
 
 app.post('/login', (req, res) => {
   const { userName, password } = req.body;
-
   const query = 'SELECT userName, password FROM users WHERE userName = ?';
   connection.query(query, [userName], (err, results) => {
     if (err) {
@@ -69,12 +63,9 @@ app.post('/login', (req, res) => {
       } else {
         return res.status(401).json({ error: 'Invalid credentials' });
       }
-      
-
     });
   });
 });
-
 
 app.post('/signup', (req, res) => {
   const {
