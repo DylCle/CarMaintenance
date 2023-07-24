@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const mysql = require('mysql2');
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -27,6 +27,8 @@ router.post('/', (req, res) => {
       return res.status(400).json({ message: 'Emails do not match' });
     } else if (password !== confirm_Password) {
       return res.status(400).json({ message: 'Passwords do not match' });
+    } else if (!emailPattern.test(email)){
+        return res.status(400).json({ message: 'Invalid email format' });
     }
   
     // Hash the password using bcrypt

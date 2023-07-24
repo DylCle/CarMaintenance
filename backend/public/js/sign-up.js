@@ -59,24 +59,37 @@ signupButton.addEventListener('click', () => {
                                 },
                                 body: JSON.stringify(formData),
                             })
-                                .then((response) => response.json())
+                                .then((response) => {
+                                    if (!response.ok) {
+                                        return response.json().then((data) => {
+                                            throw new Error(data.message);
+                                        })
+
+                                    }
+                                    return response.json();
+                                })
                                 .then((data) => {
                                     console.log(data.message);
                                     signUpBox.classList.add('hide');
                                     loginBox.classList.remove('hide');
                                 })
                                 .catch((error) => {
-                                    console.error('Error:', error);
+                           
+                                        errorPopUp.classList.remove('hide');
+                                        errorText.innerHTML = `${error.message}`
+                                        errorPopUp.appendChild(errorText);
+                                  
+                                    console.error('Error:', error.message);
                                 });
                         }
                     })
                     .catch((error) => {
-                        console.error('Error:', error);
+                        console.error('Error: 2 ', error);
                     });
             }
         })
         .catch((error) => {
-            console.error('Error:', error);
+            console.error('Error: 3', error);
         });
 });
 
