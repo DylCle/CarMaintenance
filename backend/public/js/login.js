@@ -20,9 +20,7 @@ loginButton.addEventListener('click', () => {
     })
         .then((response) => {
             if (!response.ok) {
-                errorPopUp.classList.remove('hide');
-                errorText.innerHTML = "Invalid credentials. Please check your username and password.."
-                errorPopUp.appendChild(errorText);
+
                 console.log('Invalid credentials. Please check your username and password.');
             }
             return response.json();
