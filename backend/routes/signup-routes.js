@@ -5,7 +5,7 @@ const saltRounds = 10; //gitignore
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const mysql = require('mysql2');
 const {sendMail} = require('../public/js/emailer');
-
+require('dotenv').config();
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'falco',
