@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
     } else{
       const sendTo = `${email}`;
       const mailOptions = {
-        from: 'newrussianguy12@gmail.com', //gitignore
+        from: process.env.MY_EMAIL,
         subject: 'Thanks for signing up',
         text: 'Hey, this is a test for when users sign up. Your user name is ' + userName
       }

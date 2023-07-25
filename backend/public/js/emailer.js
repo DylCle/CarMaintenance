@@ -4,8 +4,8 @@ const sendMail = (sendTo, mailOptions) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'newrussianguy12@gmail.com', // gitignore
-          pass: process.env.G_KEY,
+            user: process.env.MY_EMAIL,
+            pass: process.env.MY_PASSWORD
         }
       });
 
