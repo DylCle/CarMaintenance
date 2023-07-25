@@ -1,15 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require('bcrypt'); //gitignore
-const saltRounds = 10; //gitignore
+const bcrypt = require('bcrypt'); 
+const saltRounds = 10; 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const mysql = require('mysql2');
+const path = require('path');
 const {sendMail} = require('../public/js/emailer');
-require('dotenv').config();
+require('dotenv').config({ path: path.resolve(__dirname, '..', '..',  '.env') });
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'falco',
-  password: '1337', // gitignore
+  password: process.env.DB_PASS,
   database: 'usersdatabase',
 });
 
@@ -25,7 +26,7 @@ router.post('/', (req, res) => {
     } = req.body;
   
     // Check if emails and passwords match
-    if (email !== confirm_Email) {
+    if (email.toLowerCase() !== confirm_Email.toLowerCase()) {
       return res.status(400).json({ message: 'Emails do not match' });
     } else if (password !== confirm_Password) {
       return res.status(400).json({ message: 'Passwords do not match' });

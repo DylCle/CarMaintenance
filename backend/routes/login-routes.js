@@ -2,15 +2,16 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcrypt'); //gitignore
 const mysql = require('mysql2');
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '..', '..',  '.env') });
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'falco',
-  password: '1337', // gitignore
+  password: process.env.DB_PASS,
   database: 'usersdatabase',
 });
 
 router.post('/', (req, res) => {
-    console.log(req.body);
     const { userName, password } = req.body;
     const query = 'SELECT userName, password FROM users WHERE userName = ?';
     connection.query(query, [userName], (err, results) => {

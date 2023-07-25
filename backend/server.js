@@ -8,11 +8,8 @@ const signUpRoute = require('./routes/signup-routes.js');
 const checkEmail = require('./routes/checkemail-routes.js')
 require('dotenv').config();
 
-
-
 app.use(bodyParser.json());
 app.use(express.json());
-
 
 app.use('/login', loginRoute);
 app.use('/check-field', checkEmail);

@@ -1,4 +1,3 @@
-
 const signupButton = document.getElementById('signup-button');
 const errorPopUp = document.getElementById('error');
 const errorText = document.createElement('p');
