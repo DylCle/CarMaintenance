@@ -70,10 +70,10 @@ router.post('/', (req, res) => {
         'INSERT INTO users (userName, first_name, last_name, email, confirm_email, password, confirm_password) VALUES (?, ?, ?, ?, ?, ?, ?)';
       const values = [
         user.userName,
-        user.first_Name,
-        user.last_Name,
-        user.email,
-        user.confirm_Email,
+        user.first_Name.toLowerCase(),
+        user.last_Name.toLowerCase(),
+        user.email.toLowerCase(),
+        user.confirm_Email.toLowerCase(),
         user.password,
         user.confirm_Password,
       ];

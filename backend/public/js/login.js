@@ -1,9 +1,10 @@
 const loginButton = document.getElementById('login-button');
-const signupButton = document.getElementById('signup-button');
 const errorPopUp = document.getElementById('error');
 const errorText = document.createElement('p');
+
 errorText.innerHTML = "";
 loginButton.addEventListener('click', () => {
+
     if (!errorPopUp.classList.contains('hide')) {
         errorPopUp.classList.add('hide');
     }
@@ -51,9 +52,13 @@ loginButton.addEventListener('click', () => {
             return response.json();
         })
         .then((data) => {
-            console.log('test' + data.message);
-            localStorage.setItem('username', userName);
-            window.location.href = '../home.html';
+            if (data) {
+                const { message, userName } = data;
+                console.log(userName)
+                localStorage.setItem('username', userName);
+                console.log('Stored in localStorage:', localStorage.getItem('username'));
+                window.location.href = '../home.html';
+            }
 
         })
         .catch((error) => {

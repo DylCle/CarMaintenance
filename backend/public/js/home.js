@@ -1,9 +1,10 @@
-let storedUsername = localStorage.getItem('username');
-const welcome = document.getElementById('welcome');
 
-function onLoad (){
+function onLoad() {
+    console.log('onLoad function called');
+    let storedUsername = localStorage.getItem('username');
+    const welcome = document.getElementById('welcome');
     if (storedUsername) {
-        welcome.textContent = `WELCOME, ${storedUsername.charAt(0).toUpperCase() + storedUsername.slice(1)}`
+        welcome.textContent = `WELCOME, ${storedUsername}`
         console.log('Username from login:', storedUsername);
     } else if (storedUsername === null) {
         window.location.href = '../'
