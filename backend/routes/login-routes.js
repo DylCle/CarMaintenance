@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
+const bcrypt = require('bcrypt'); //gitignore
 const mysql = require('mysql2');
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'falco',
-  password: '1337',
+  password: '1337', // gitignore
   database: 'usersdatabase',
 });
 

@@ -1,13 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
+const bcrypt = require('bcrypt'); //gitignore
+const saltRounds = 10; //gitignore
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const mysql = require('mysql2');
+const {sendMail} = require('../public/js/emailer');
+
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'falco',
-  password: '1337',
+  password: '1337', // gitignore
   database: 'usersdatabase',
 });
 
@@ -29,6 +31,20 @@ router.post('/', (req, res) => {
       return res.status(400).json({ message: 'Passwords do not match' });
     } else if (!emailPattern.test(email)){
         return res.status(400).json({ message: 'Invalid email format' });
+    } else{
+      const sendTo = `${email}`;
+      const mailOptions = {
+        from: 'newrussianguy12@gmail.com', //gitignore
+        subject: 'Thanks for signing up',
+        text: 'Hey, this is a test for when users sign up. Your user name is ' + userName
+      }
+      
+      sendMail(sendTo, mailOptions)
+        .then(info => {
+          console.log("email sentL " + info.response);
+        })  .catch(error => {
+          console.log(error);
+        });
     }
   
     // Hash the password using bcrypt
