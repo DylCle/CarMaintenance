@@ -4,6 +4,11 @@ let loginBox = document.getElementById('login-box');
 let signUpBox = document.getElementById('signup-box');
 let exitButtons = document.querySelectorAll('.exit');
 let hide = document.querySelector('.hide');
+let resetPwd = document.getElementById('reset-pwd');
+
+function resetPwdLink() {
+    
+}
 
 function showLoginBox() {
     signUp.classList.add('hide');
