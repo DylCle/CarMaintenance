@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mysql = require('mysql2');
 const path = require('path');
+const axios = require('axios');
 const { sendMail } = require('../public/js/emailer');
 let email = '';
 require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
@@ -32,13 +33,19 @@ router.post('/', (req, res) => {
         const url = `http://localhost:3000/${linkId}/${user.userName}`;
         console.log(url);
 
-        fetch(url, {
-            method: 'POST',
+        axios.post(url, user, {
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
+            }
         })
+
+        // fetch(url, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(user)
+        // })
             .then(response => response.json())
             .then(result => {
                 console.log(result + 'this here!'); 

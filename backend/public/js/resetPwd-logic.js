@@ -1,9 +1,12 @@
+//this is for the screen when the user enters their email to recieve the reset password email.
+
 const sendBtn = document.getElementById('send-btn');
 
 function disableLink() {
     emailLink.removeAttribute('href');
     emailLink.style.pointerEvents = 'none';
 }
+let userName;
 
 sendBtn.addEventListener('click', function () {
     const timer = 10000; 
@@ -20,7 +23,8 @@ sendBtn.addEventListener('click', function () {
     })
     .then(response => response.json()) 
     .then((data) => {
-        const { userName } = data;
+        userName = data.userName;
+        localStorage.setItem('resetPwd', userName);
         console.log(userName);
     })
     .catch((error) => {
