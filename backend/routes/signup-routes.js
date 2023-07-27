@@ -61,8 +61,8 @@ router.post('/', (req, res) => {
         last_Name,
         email,
         confirm_Email,
-        password: hash, // Store the hashed password in the database
-        confirm_Password: hash, // Store the hashed password in the database
+        password: hash, 
+        confirm_Password: hash, 
       };
   
       // Save the user data to the MySQL database

@@ -28,9 +28,9 @@ router.post('/', (req, res) => {
         }
         const user = results[0];
         console.log(user.userName);
-        let linkId = require('../server.js');
+        const linkId = require('../server.js');
         console.log(linkId);
-        const url = `http://localhost:3000/${linkId}/${user.userName}`;
+        const url = `http://localhost:3000/id/${linkId}/username/${user.userName}`;
         console.log(url);
 
         axios.post(url, user, {

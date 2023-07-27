@@ -21,7 +21,7 @@ function ranId(length) {
   }
   return result;
 }
-let id = ranId(15);
+const id = ranId(15);
 module.exports = id;
 
 console.log(id);
@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.use('/send-reset-pwd-email', resetPwdEmail);
-app.use(`/${id}/:username`, newPwdPg)
+app.use(`/:${id}/:username`, newPwdPg)
 app.use('/login', loginRoute);
 app.use('/check-field', checkEmail);
 app.use('/signup', signUpRoute);
