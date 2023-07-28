@@ -32,3 +32,44 @@ text-align: center;
     font-size: large;
     padding: 1em;
 }
+
+.car-container {
+  cursor: pointer;
+  margin: 1em 0;
+  width: 50%;
+  border: 1px solid lightskyblue;
+  padding-left: 1em;
+}
+
+.car-container h2 {
+    display: inline-block;   
+}
+
+#add-new-car{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+#add-car {
+ cursor: pointer;
+ border: none;
+ background-color: transparent;
+}
+
+
+#car-info{
+    display: grid;
+    grid-template-columns: repeat(3, 25%);
+    justify-content: center;
+    align-items: center;
+}
+
+#car-name, #car-year{
+    text-align: center;
+}
+
+#car-image {
+    width: 50%;
+}

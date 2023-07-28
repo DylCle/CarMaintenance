@@ -8,6 +8,7 @@ const {router: resetPwdEmail, email} = require('./routes/resetpassword-route.js'
 const newPwdPg = require('./routes/newPasswordPage-route.js')
 const signUpRoute = require('./routes/signup-routes.js');
 const checkEmail = require('./routes/checkemail-routes.js')
+const carData = require('./routes/cardata-route.js')
 const urlId = require('./dynamic.js');
 
 require('dotenv').config();
@@ -23,6 +24,7 @@ app.use(`/:${id}/:username`, newPwdPg)
 app.use('/login', loginRoute);
 app.use('/check-field', checkEmail);
 app.use('/signup', signUpRoute);
+app.use('/cardata', carData);
 
 const publicPath = path.join(__dirname, './public');
 app.use(express.static(publicPath));

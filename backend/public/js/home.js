@@ -1,5 +1,10 @@
+import {createContainer} from './createContainer.js'
+
 
 function onLoad() {
+    createContainer();
+
+
     console.log('onLoad function called');
     let storedUsername = localStorage.getItem('username');
     const welcome = document.getElementById('welcome');
@@ -10,6 +15,7 @@ function onLoad() {
         window.location.href = '../'
         console.log('Username from login: else', storedUsername);
     }
+
 }
 
 onLoad();
