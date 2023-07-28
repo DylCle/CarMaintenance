@@ -8,20 +8,10 @@ const {router: resetPwdEmail, email} = require('./routes/resetpassword-route.js'
 const newPwdPg = require('./routes/newPasswordPage-route.js')
 const signUpRoute = require('./routes/signup-routes.js');
 const checkEmail = require('./routes/checkemail-routes.js')
+const urlId = require('./dynamic.js');
 
 require('dotenv').config();
-function ranId(length) {
-  let result = '';
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  let counter = 0;
-  while (counter < length) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    counter += 1;
-  }
-  return result;
-}
-const id = ranId(15);
+const id = urlId(15);
 module.exports = id;
 
 console.log(id);
@@ -40,12 +30,6 @@ app.use(express.static(publicPath));
 app.get('/', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
-
-// app.get('/profile', (req, res) => {
-//   // Use the loggedInUserName value in the response
-//   console.log(loggedInUserName);
-//   res.status(200).json({ userName: loggedInUserName });
-// });
 
 // Start the server
 app.listen(port, () => {

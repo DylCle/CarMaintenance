@@ -38,14 +38,6 @@ router.post('/', (req, res) => {
                 'Content-Type': 'application/json'
             }
         })
-
-        // fetch(url, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(user)
-        // })
             .then(response => response.json())
             .then(result => {
                 console.log(result + 'this here!'); 
