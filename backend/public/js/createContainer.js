@@ -1,7 +1,6 @@
 export function createContainer() {
     let carContainer = document.createElement('div');
     let addCarContainer = document.createElement('div');
-    let carInfor = document.createElement('div');
     let addCar = document.createElement('div');
     let img = document.createElement('img');
     let carMake = document.createElement('h3');
@@ -10,7 +9,11 @@ export function createContainer() {
     let addBtn = document.createElement('button');
     let addCarTxt = document.createElement('h2')
 
-    addCarContainer.setAttribute('class', 'car-container');
+    addCarContainer.addEventListener('click', () => {
+        window.location.href = '../add-car.html'
+    })
+
+    addCarContainer.setAttribute('id', 'add-new-car');
     addCar.setAttribute('id', 'add-new-car');
     addBtn.setAttribute('id', 'add-car');
     addBtn.textContent = '+';
@@ -18,35 +21,42 @@ export function createContainer() {
 
 
     carContainer.setAttribute('class', 'car-container');
-    carInfor.setAttribute('id', 'car-info');
+
 
 
     img.setAttribute('id', 'car-image');
-    //img.setAttribute('src', 'https://www.pngmart.com/files/22/Tesla-Model-X-PNG-Photo.png');
     carMake.setAttribute('id', 'car-name');
     carYear.setAttribute('id', 'car-year');
 
     function updateCar(data) {
         const { CarMake, CarYear, CarModel, CarImage } = data;
-      
-        //console.log('Received data:', data);
-      
-        const carNameElement = document.getElementById('car-name');
-        const carYearElement = document.getElementById('car-year');
-        const imgElement = document.getElementById('car-image');
-      
-        // Update the text and img
+
+        const carContainer = document.createElement('div');
+        const carNameElement = document.createElement('h3');
+        const carYearElement = document.createElement('h3');
+        const imgElement = document.createElement('img');
+        const carInfor = document.createElement('div');
+
+        carContainer.setAttribute('class', 'car-container');
+        carInfor.setAttribute('class', 'car-info');
+        carNameElement.setAttribute('class', 'car-name');
+        carYearElement.setAttribute('class', 'car-year');
+        imgElement.setAttribute('class', 'car-image');
         carNameElement.textContent = CarMake + ' ' + CarModel;
         carYearElement.textContent = CarYear;
-      
-        // Set the CarImage URL as the src attribute of imgElement
         imgElement.setAttribute('src', CarImage);
-      }
+
+        carInfor.appendChild(imgElement);
+        carInfor.appendChild(carNameElement);
+        carInfor.appendChild(carYearElement);
+
+        carContainer.appendChild(carInfor);
+        document.body.appendChild(carContainer);
+    }
 
     fetch('/cardata')
         .then((response) => {
             if (!response.ok) {
-                //const carDataElement = document.getElementsByClassName('car-container');
                 carContainer.classList.add('hide');
                 throw new Error('Network response was not ok');
             }
@@ -55,32 +65,18 @@ export function createContainer() {
         .then((data) => {
             if (data.error && data.error === 'No data found for the user') {
 
-              } else{
-                updateCar(data);
+            } else {
+                data.forEach(car => {
+                    updateCar(car);
+                });
+                addCarContainer.appendChild(addBtn);
+                addCarContainer.appendChild(addCarTxt);
+        document.body.appendChild(addCarContainer);
                 console.log(data);
-              }
+            }
 
         })
         .catch((error) => {
             console.error('Fetch error:', error);
         });
-
-
-    addCar.appendChild(addBtn);
-    addCar.appendChild(addCarTxt);
-    addCarContainer.appendChild(addCar);
-
-    carInfor.appendChild(img);
-    carInfor.appendChild(carMake);
-    carInfor.appendChild(carYear);
-
-    return new Promise((resolve) => {
-        carContainer.appendChild(carInfor);
-        document.body.appendChild(carContainer);
-        document.body.appendChild(addCarContainer);
-
-        // Resolve the Promise
-        resolve();
-    });
-
 }

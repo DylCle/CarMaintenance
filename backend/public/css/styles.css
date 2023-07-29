@@ -50,6 +50,11 @@ text-align: center;
     grid-template-columns: 50% 50%;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    margin: 1em 0;
+    width: 50%;
+    border: 1px solid lightskyblue;
+    padding-left: 1em;
 }
 
 #add-car {
@@ -59,17 +64,22 @@ text-align: center;
 }
 
 
-#car-info{
+.car-info{
     display: grid;
     grid-template-columns: repeat(3, 25%);
     justify-content: center;
     align-items: center;
 }
 
-#car-name, #car-year{
+.car-name, .car-year{
     text-align: center;
 }
 
-#car-image {
+.car-image {
     width: 50%;
+}
+
+#container{
+    border: 1px solid black;
+    width: min-content;
 }

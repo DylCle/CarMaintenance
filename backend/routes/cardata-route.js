@@ -3,9 +3,6 @@ const router = express.Router();
 const path = require('path');
 const mysql = require('mysql2');
 const { getLoggedId } = require('./login-routes.js');
-let logger;
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
 require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -36,7 +33,7 @@ router.get('/', async (req, res) => {
             return res.status(404).json({ error: 'No data found for the user' });
           }
 
-        res.send(results[0]);
+          res.json(results);
         console.log(loggedId + ' ' + 'this userid');
     } catch (error) {
         console.error('Error querying the database:', error);
