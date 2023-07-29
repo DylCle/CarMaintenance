@@ -53,8 +53,10 @@ loginButton.addEventListener('click', () => {
         })
         .then((data) => {
             if (data) {
-                const { message, userName } = data;
-                console.log(userName)
+                const { message, userName, id } = data;
+                let userID = id;
+                localStorage.setItem('id', userID);
+                console.log(userID)
                 localStorage.setItem('username', userName);
                 console.log('Stored in localStorage:', localStorage.getItem('username'));
                 window.location.href = '../home.html';

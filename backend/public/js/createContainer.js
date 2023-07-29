@@ -29,7 +29,7 @@ export function createContainer() {
     function updateCar(data) {
         const { CarMake, CarYear, CarModel, CarImage } = data;
       
-        console.log('Received data:', data);
+        //console.log('Received data:', data);
       
         const carNameElement = document.getElementById('car-name');
         const carYearElement = document.getElementById('car-year');
@@ -46,13 +46,20 @@ export function createContainer() {
     fetch('/cardata')
         .then((response) => {
             if (!response.ok) {
+                //const carDataElement = document.getElementsByClassName('car-container');
+                carContainer.classList.add('hide');
                 throw new Error('Network response was not ok');
             }
             return response.json();
         })
         .then((data) => {
-            updateCar(data);
-            console.log(data);
+            if (data.error && data.error === 'No data found for the user') {
+
+              } else{
+                updateCar(data);
+                console.log(data);
+              }
+
         })
         .catch((error) => {
             console.error('Fetch error:', error);

@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const mysql = require('mysql2');
 const path = require('path');
 let loggedInUserName = '';
+let loggedId = '';
 require('dotenv').config({ path: path.resolve(__dirname, '..', '..',  '.env') });
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -14,7 +15,7 @@ const connection = mysql.createConnection({
 
 router.post('/', (req, res) => {
     const { userName, password } = req.body;
-    const query = 'SELECT userName, password FROM users WHERE userName = ?';
+    const query = 'SELECT id, userName, password FROM users WHERE userName = ?';
     connection.query(query, [userName.toLowerCase()], (err, results) => {
       if (err) {
         console.error('Error querying the database:', err);
@@ -36,8 +37,11 @@ router.post('/', (req, res) => {
   
         if (match) {
           loggedInUserName = user.userName;
-
-          res.status(200).json({userName: user.userName});
+          loggedId = results[0].id;
+          console.log(user.loggedId)
+          console.log(results[0].id);
+          res.send(results[0])
+          //res.status(200).json({userName: user.userName});
         } else {
           return res.status(401).json({ error: 'Invalid credentials' });
         }
@@ -48,5 +52,6 @@ router.post('/', (req, res) => {
   module.exports = {
     router,
     loggedInUserName,
+    getLoggedId: () => loggedId
   };
   
