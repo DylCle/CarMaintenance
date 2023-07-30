@@ -29,6 +29,7 @@ export function createContainer() {
     carYear.setAttribute('id', 'car-year');
 
     function updateCar(data) {
+        
         const { CarMake, CarYear, CarModel, CarImage } = data;
 
         const carContainer = document.createElement('div');
@@ -44,7 +45,8 @@ export function createContainer() {
         imgElement.setAttribute('class', 'car-image');
         carNameElement.textContent = CarMake + ' ' + CarModel;
         carYearElement.textContent = CarYear;
-        imgElement.setAttribute('src', CarImage);
+        //TO GET THE IMAGE, USE DATA PARAM
+        imgElement.setAttribute('src', data.CarImage);
 
         carInfor.appendChild(imgElement);
         carInfor.appendChild(carNameElement);
@@ -64,19 +66,23 @@ export function createContainer() {
         })
         .then((data) => {
             if (data.error && data.error === 'No data found for the user') {
-
+                const imageUrl = URL.createObjectURL(data);
+                document.getElementById('car-image').src = imageUrl;
             } else {
                 data.forEach(car => {
                     updateCar(car);
                 });
-                addCarContainer.appendChild(addBtn);
-                addCarContainer.appendChild(addCarTxt);
-        document.body.appendChild(addCarContainer);
+
                 console.log(data);
             }
+            
 
         })
         .catch((error) => {
             console.error('Fetch error:', error);
         });
+
+        addCarContainer.appendChild(addBtn);
+        addCarContainer.appendChild(addCarTxt);
+document.body.appendChild(addCarContainer);
 }

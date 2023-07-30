@@ -23,6 +23,15 @@ router.get('/', async (req, res) => {
                     console.error('Error querying the database:', err);
                     reject(err);
                 } else {
+                    const baseURL = 'http://localhost:3000/uploads/'; // Relative path to the "uploads" folder
+                    const carsWithImageURL = results.map(car => {
+                        return {
+                            ...car,
+                            CarImage: baseURL + car.CarImage
+                        };
+                    });
+                    console.log(carsWithImageURL);
+                    resolve(carsWithImageURL);
                     console.log(results)
                     resolve(results);
                 }
@@ -31,9 +40,9 @@ router.get('/', async (req, res) => {
 
         if (results.length === 0) {
             return res.status(404).json({ error: 'No data found for the user' });
-          }
+        }
 
-          res.json(results);
+        res.json(results);
         console.log(loggedId + ' ' + 'this userid');
     } catch (error) {
         console.error('Error querying the database:', error);

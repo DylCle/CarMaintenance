@@ -27,6 +27,8 @@ app.use('/check-field', checkEmail);
 app.use('/signup', signUpRoute);
 app.use('/cardata', carData);
 app.use('/add-car', addCar);
+//THIS IS NEEDED TO GET THE IMAGES
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const publicPath = path.join(__dirname, './public');
 app.use(express.static(publicPath));

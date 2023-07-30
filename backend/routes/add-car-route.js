@@ -2,9 +2,11 @@ const express = require("express");
 const router = express.Router();
 const path = require('path');
 const mysql = require('mysql2');
+const multer = require('multer');
+const fs = require('fs');
 const { getLoggedId } = require('./login-routes.js');
 require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
-const connection = mysql.createConnection({
+const dbConfig = ({
     host: 'localhost',
     user: 'falco',
     password: process.env.DB_PASS,
@@ -13,27 +15,46 @@ const connection = mysql.createConnection({
 
 router.use(express.json());
 
-router.put('/', (req, res) => {
+//HANDLES THE IMAGE
+//CHECK SERVER.JS FOR MORE
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    },
+});
+
+const upload = multer({ storage: storage });
+router.post('/', upload.single('carImage'), async (req, res) => {
     try {
+        const { carMake, carModel, carYear, userId } = req.body;
+        if (!req.file) {
+            return res.status(400).send('No file uploaded.');
+        }
 
+        //NEEDED TO GET FILE NAME
+        const carImage = req.file.filename;
 
-        const loggedId = getLoggedId();
-        const { CarMake, CarModel, CarYear, userId } = req.body;
+        // Save file details and car information to the database
+        const connection = await mysql.createConnection(dbConfig);
 
-        const query = `INSERT INTO cars (CarMake, CarModel, CarYear, UserId_FK) VALUES (?, ?, ?, ?);`
-        connection.query(query, [CarMake, CarModel, CarYear, userId], (err, results) => {
-            if (err) {
-               return res.send(err)
-            } else {
-                return res.json({ message: 'Data saved successfully' });
-            }
-        })
+        // Insert the car details into the cars table
+        const [result] = await connection.execute(
+            'INSERT INTO cars (UserId_FK, CarMake, CarModel, CarYear, CarImage) VALUES (?, ?, ?, ?, ?)',
+            [userId, carMake, carModel, carYear, carImage]
+        );
 
-    } catch (error) {
-        console.error('Error querying the database:', error);
-        res.status(500).json({ error: 'Error querying the database' });
+        connection.end();
+
+        res.status(200).send(`Car uploaded successfully! Car ID: ${result.insertId}`);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('An error occurred while uploading the car.');
     }
-})
+});
+
 
 
 
